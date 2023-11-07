@@ -25,7 +25,7 @@ const App = () => {
 		error: staffLeaveError,
 	} = useFetch('http://localhost:8000/staffLeave.php');
 
-	console.log(staffDuty, staffLeave);
+	console.log(staffLeave);
 
 	staffNameLoading
 		? console.log('loading')
@@ -53,12 +53,32 @@ const App = () => {
 					yearlyData[year][week] = [];
 				}
 
-				staffName.forEach((person) => {
-					yearlyData[year][week][person.id] = { ...person };
-				});
-		  });
+				// push name of person and create new key for leave dates object
+				if (staffName !== null) {
+					staffName.forEach((person) => {
+						yearlyData[year][week][person.id] = {
+							name: person.name,
+							leaveDates: [],
+						};
 
-	console.log(yearlyData);
+						// push into leave dates array
+						if (staffLeave !== null) {
+							staffLeave.forEach((input) => {
+								if (
+									input.id === person.id &&
+									input.year === year &&
+									input.woy === week
+								) {
+									yearlyData[year][week][
+										person.id
+									].leaveDates.push(input);
+								}
+							});
+						}
+					});
+				}
+		  });
+	yearlyData !== null ? console.log(yearlyData) : null;
 	return (
 		<>
 			<DataContext.Provider
