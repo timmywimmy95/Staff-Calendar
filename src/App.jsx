@@ -59,6 +59,7 @@ const App = () => {
 						yearlyData[year][week][person.id] = {
 							name: person.name,
 							leaveDates: [],
+							dutyDates: [],
 						};
 
 						// push into leave dates array
