@@ -21,7 +21,9 @@ const Table = () => {
 		? console.log('loading')
 		: staffName.forEach((person) => {
 				if (new Date(person.endDate) < new Date()) {
+					//find index of person
 					const index = staffName.indexOf(person);
+					//remove person from staffName array by splicing
 					staffName.splice(index, 1);
 				}
 		  });
