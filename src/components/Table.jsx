@@ -14,9 +14,8 @@ const Table = () => {
 		staffLeaveLoading,
 	} = useContext(DataContext);
 	const days = daysInMonth.map((day) => <td key={day}>{day}</td>);
-	console.log(staffNameLoading, staffName);
 
-	//remove if staff has left
+	//housekeep staffName array and re-order
 	staffNameLoading
 		? console.log('loading')
 		: staffName.forEach((person) => {
@@ -26,20 +25,31 @@ const Table = () => {
 					//remove person from staffName array by splicing
 					staffName.splice(index, 1);
 				}
+				// sort array based on their level
+				staffName.sort((a, b) => a.level - b.level);
 		  });
 
-	// const names = staffNameLoading
-	// 	? 'Loading'
-	// 	: staffName.map((person) => console.log(person.name));
+	const names = staffNameLoading
+		? null
+		: staffName.map((person, index) => (
+				<tr key={index}>
+					<td>{person.name}</td>
+				</tr>
+		  ));
+
 	return (
 		<>
 			<h1>{dateRef.current.toDateString()}</h1>
-			<table>
-				<thead>
-					<tr>{days}</tr>
-				</thead>
-				{/* <tbody>{names}</tbody> */}
-			</table>
+			{staffDutyLoading || staffLeaveLoading || staffNameLoading ? (
+				'Loading'
+			) : (
+				<table>
+					<thead>
+						<tr>{days}</tr>
+					</thead>
+					<tbody>{names}</tbody>
+				</table>
+			)}
 		</>
 	);
 };
