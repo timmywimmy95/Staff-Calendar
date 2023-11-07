@@ -52,7 +52,6 @@ const App = () => {
 				} else {
 					yearlyData[year][week] = [];
 				}
-
 				// push name of person and create new key for leave dates object
 				if (staffName !== null) {
 					staffName.forEach((person) => {
@@ -76,6 +75,7 @@ const App = () => {
 								}
 							});
 						}
+						//loop through each duty period to find your name for each week
 					});
 				}
 		  });
