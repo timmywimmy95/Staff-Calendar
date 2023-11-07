@@ -1,3 +1,3 @@
 import { createContext } from 'react';
 
-export const dateContext = createContext();
+export const DateContext = createContext();
